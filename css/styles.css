@@ -1,0 +1,94 @@
+body {
+    background-color: rgb(4, 4, 93);
+    color: gray;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+}
+
+#title {
+  padding-top: 50px;
+  border: 0;
+}
+
+#main {
+  background-color: darkblue;
+  height: 500px;
+  width: 800px;
+  border-radius: 8px;
+}
+
+.textarea {
+  resize: none;
+  position: relative;
+  padding: 10px;
+  left: 30%;
+  top: 10%;
+}
+
+#changeMode {
+  height:70px;
+  width: 180px;
+  background-color: gold;
+  border-radius: 5px;
+  font-size: large;
+  font-weight: 2000;
+}
+
+#settingsScreen {
+  height: 100%;
+  width: 100%;
+  border-radius: 8px;
+  background-color: silver;
+}
+
+#rotorsScreen {
+  height: 100%;
+  width: 30%;
+  float: left;
+  justify-content: center;
+  align-items: center;
+}
+
+.rotorDiv {
+    color: black;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#rotorLabelDiv {
+  height: 10%;
+  width: 100%;
+    color: black;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#plugScreenLabel {
+  height: 100px;
+  width: 100%;
+  color: black;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.plugDiv {
+  height: 40px;
+  width: 10%;
+  float: left;
+  color: black;
+}
