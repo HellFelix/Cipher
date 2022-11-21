@@ -21,7 +21,8 @@ In order to improve upon the Enigma machine, I have made some changes to the ori
 ### 1. No Reflektor
 
 First and most obvious is the removal of the "Reflektor". Instead, I have modified the encoding to include seven rotors as opposed to the traditional three, althought each rotor only encodes the letter once, meaning that each character is still encoded seven times. The difference of course being that the character can (in some unlikely cases) come out the other side as itself.
-
+Because this cipher lacks the Reflektor, one cannot simply decode the message by running it through the machine again the way that Enigma used to. Instead, the decoding is a separate process in which the program encodes backwards, quite litteraly. When decoding, the program reverses the positioning of the rotor and runs the message through, always yielding the original message 
+because the pairings remain the same forewards and backwards.
 Note: This not being a physical machine, I could technically have added as many rotors as I wanted. I decided to stick with seven because it would yield as many individual encodings as the original Enigma machine. Also, inputting starting positions and notch positions for like 50 rotors would be a nightmare. 
 
 ### 2. Inclusion of more characters
@@ -44,12 +45,24 @@ This section will cover how to use the cipher
 
 ### Settings
 
-Clicking the "Change mode" button will bring you to the settings Screee. Here, you can change the settings of the cipher.
+Clicking the "Settings" button will bring the client to the settings Screee. Here, you can change the settings of the cipher.
 
 #### Rotors
 
 Each rotor has two possible modifications:
 
-    1. Initial position
-        This is where you can input the initial position of the rotor. For  
-        With no input 
+1. Initial position   
+This is where the client can input the initial position of the rotor. For instance, an initial position of 15 would have the rotor turn 15 times before encoding the input.  
+With no input, the rotors will default to 1.
+2. Notch positions  
+This is where the client can specify the notch positions in which rotors will turn. More details can be found [here](user-content-3-rotation-of-the-rotors).  
+With no input, the notch positions will all default to 1.
+
+#### Plugboard  
+The plugboard works pretty much identically to the original Enigma machine. Upon typing a character into the input for another character, the plugboard will "link the two up" in both ends of the encoding/decoding process. Upon linking two characters, the two will turn light green to indicate that they are linked.  
+The plugboard can be reset by clicking the "Reset" button.  
+For every character, if no input is specified, it will be linked to itself.  
+Note that inputting the same character for two other characters might break the cipher. This can be fixed by resetting the plugboard.
+
+### Input/Output
+On the main screen, there are two sets of input and output areas. The first one encodes and the second decodes. As long as the settings stay the same, the decoding should yield the original message. More on how this works can be found [here](user-content-1-no-reflektor).
