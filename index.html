@@ -8,29 +8,46 @@
   </head>
   <body>
     <div id=title>
-      <h1>Enigma</h1>
+      <h1 style="font-size:70px">Enigma</h1>
     </div>
     <div id="main">
       <div id="inputScreen" style="height: 100%; width: 100%;">
-        <div style="width: 50%; height: 100%; float: left;">
-          <textarea class="textarea" id="input">Input</textarea>
-        </div>
-        <div style="width: 50%; height: 100%; float: left;">
-          <textarea class="textarea" id="output">Output</textarea>
-        <div style="height: 50%; width: 100%;">            
+        <div style="height: 40%;">
+          <div style="height:20%; width: 100%; display: flex; flex-direction: column; align-items: center;">
+            <h1>Encode</h1>
           </div>
+          <div style="width: 40%; height: 80%; float: left;">
+            <textarea class="textarea" id="encodeInput" placeholder="Input"></textarea>
+          </div>
+          <div style="width:20%; height: 80%; float: left;">
+            <button type="button" id="buttonEncode" class="buttonRun">Encode</button>
+          </div>
+          <div style="width: 40%; height: 80%; float: left;">
+            <textarea readonly class="textarea" id="encodeOutput" placeholder="output">
+            </textarea>
+          </div>
+        </div>
+        <div style="height: 40%;">
+          <div style="height:20%; width: 100%; display: flex; flex-direction: column; align-items: center;">
+            <h1 style="margin: 0;">Decode</h1>
+          </div>
+          <div style="width: 40%; height: 80%; float: left;">
+            <textarea class="textarea" id="decodeInput" placeholder="Input"></textarea>
+          </div>
+          <div style="width: 20%; height:80%; float: left">
+            <button id="buttonDecode" class="buttonRun">Decode</button>
+          </div>
+          <div style="width: 40%; height: 80%; float: left;">
+            <textarea readonly class="textarea" id="decodeOutput" placeholder="output"></textarea>
+          </div>
+        </div>
+        <div style="width: 100%;">
+          <button id="changeSettings">Settings</button>
         </div>
       </div>
     </div>
-    <div>
-      <button id="changeMode">Change mode</button>
-    </div>
     <script>
-      var exports = {};
     </script>
-    <script src="dist/plugboard.js"></script>    
-    <script src="dist/cipher.js"></script>
-    <script src="dist/change_screen.js"></script> 
+    <script src="dist/bundle.js"></script>
   </body>
 </html>
-</htmlml>

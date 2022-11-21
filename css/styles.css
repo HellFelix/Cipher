@@ -1,6 +1,6 @@
 body {
-    background-color: rgb(4, 4, 93);
-    color: gray;
+    background-color: #17181c;
+    color: #005EB8;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -11,13 +11,18 @@ body {
     width: 100vw;
 }
 
+h1 {
+  text-shadow: 0 0 5px #44D62C;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
 #title {
   padding-top: 50px;
   border: 0;
 }
 
 #main {
-  background-color: darkblue;
+  background-color: #292C33;
   height: 500px;
   width: 800px;
   border-radius: 8px;
@@ -27,24 +32,69 @@ body {
   resize: none;
   position: relative;
   padding: 10px;
-  left: 30%;
-  top: 10%;
+  margin: 10%;
+  left:10%;
+  background-color: #393D47;
+  color: white;
+  border-color: #44D62C;
 }
 
-#changeMode {
+#changeSettings {
   height:70px;
-  width: 180px;
-  background-color: gold;
+  width: 20%;
+  position: relative;
+  left: 40%;
+  background: none;
+  color: #44D62C;
   border-radius: 5px;
+  border-color: #44D62C;
   font-size: large;
   font-weight: 2000;
 }
+
+.buttonRun {
+  height: 20%;
+  width: 70%;
+  position: relative;
+  left: 15%;
+  top: 20%;
+  color: #D22730;
+  background: none;
+  border: 2px solid;
+  border-radius: 10px;
+  border-color: #D22730;
+  line-height: 1;
+  margin: 0.5em;
+  transition: 0.25s;
+  font-weight: 500;
+}
+
+.buttonRun:hover,
+.buttonRun:focus {
+  animation: pulse 1s;
+  box-shadow: 0 0 0 2em transparent;
+  border-color: #FFAD00;
+  color: #fff;
+}
+
+.buttonRun:active {
+  box-shadow: 0 0 0 2em transparent;
+  border-color: #D22730;
+  color: #D22730;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 #FFAD00;
+  }
+}
+
 
 #settingsScreen {
   height: 100%;
   width: 100%;
   border-radius: 8px;
-  background-color: silver;
+  background-color: #292C33;
 }
 
 #rotorsScreen {
@@ -56,7 +106,6 @@ body {
 }
 
 .rotorDiv {
-    color: black;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -67,7 +116,6 @@ body {
 #rotorLabelDiv {
   height: 10%;
   width: 100%;
-    color: black;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -78,7 +126,7 @@ body {
 #plugScreenLabel {
   height: 100px;
   width: 100%;
-  color: black;
+  color: #D22730;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -90,5 +138,47 @@ body {
   height: 40px;
   width: 10%;
   float: left;
-  color: black;
+  color: #D22730;
+}
+
+#buttonReset {
+  height: 6%;
+  width: 20%;
+  position: relative;
+  left: 28.5%;
+  border-radius: 5px;
+  border-color: #D22730;
+  background: none;
+  color: #D22730;
+  line-height: 1;
+  margin: 0.5em;
+  transition: 0.25s;
+  font-weight: 500;
+}
+
+
+#buttonReset:hover,
+#buttonReset:focus {
+  animation: pulse 1s;
+  box-shadow: 0 0 0 2em transparent;
+  border-color: #FFAD00;
+  color: #fff;
+}
+
+#buttonReset:active {
+  box-shadow: 0 0 0 2em transparent;
+  border-color: #D22730;
+  color: #D22730;
+}
+
+#buttonBack {
+  height: 50%;
+  width: 10%;
+  position: relative;
+  left: 43%;
+  top: 15%;
+  background: none;
+  color: #D77320;
+  border-radius: 5px;
+  border-color: #D77320;
 }

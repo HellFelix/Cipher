@@ -1,10 +1,3 @@
-const changeButton = <HTMLElement> document.getElementById("changeMode");
-const inputScreen = <HTMLElement> document.getElementById("inputScreen");
-const main = <HTMLElement> document.getElementById("main");
-
-// when the application is opened, we begin with the input screen
-let currentScreen = "input";
-
 // create all the elemens for the settings screen
 // note that the plugboard is handled separately in a 
 // file called src/plugboard.ts, for the sake of simplicity
@@ -43,7 +36,7 @@ rotorLabelDiv.appendChild(rotorLabel);
 
 // rotor 1
 const inputRotor1Div = document.createElement("div");
-inputRotor1Div.style.height = "30%";
+inputRotor1Div.style.height = "18%";
 inputRotor1Div.style.width = "100%";
 inputRotor1Div.className = "rotorDiv";
 rotorsScreen.appendChild(inputRotor1Div);
@@ -61,7 +54,7 @@ inputRotor1Div.appendChild(inputRotor1);
 // notch position
 
 const labelNotch1 =document.createElement("label");
-labelNotch1.textContent = "Notch position:";
+labelNotch1.textContent = "Notch positions:";
 inputRotor1Div.appendChild(labelNotch1);
 
 const inputNotch1 = document.createElement("input");
@@ -71,7 +64,7 @@ inputRotor1Div.appendChild(inputNotch1);
 
 // rotor 2
 const inputRotor2Div = document.createElement("div");
-inputRotor2Div.style.height = "30%";
+inputRotor2Div.style.height = "18%";
 inputRotor2Div.style.width = "100%";
 inputRotor2Div.className = "rotorDiv";
 rotorsScreen.appendChild(inputRotor2Div);
@@ -89,7 +82,7 @@ inputRotor2Div.appendChild(inputRotor2);
 // notch position
 
 const labelNotch2 =document.createElement("label");
-labelNotch2.textContent = "Notch position:";
+labelNotch2.textContent = "Notch positions:";
 inputRotor2Div.appendChild(labelNotch2);
 
 const inputNotch2 = document.createElement("input");
@@ -99,7 +92,7 @@ inputRotor2Div.appendChild(inputNotch2);
 
 // rotor 3
 const inputRotor3Div = document.createElement("div");
-inputRotor3Div.style.height = "30%";
+inputRotor3Div.style.height = "18%";
 inputRotor3Div.style.width = "100%";
 inputRotor3Div.className = "rotorDiv";
 rotorsScreen.appendChild(inputRotor3Div);
@@ -117,13 +110,102 @@ inputRotor3Div.appendChild(inputRotor3);
 // notch position
 
 const labelNotch3 =document.createElement("label");
-labelNotch3.textContent = "Notch position:";
+labelNotch3.textContent = "Notch positions:";
 inputRotor3Div.appendChild(labelNotch3);
 
 const inputNotch3 = document.createElement("input");
 inputNotch3.placeholder = "1";
 inputNotch3.style.width = "20%";
 inputRotor3Div.appendChild(inputNotch3);
+
+// rotor 4
+const inputRotor4Div = document.createElement("div");
+inputRotor4Div.style.height = "18%";
+inputRotor4Div.style.width = "100%";
+inputRotor4Div.className = "rotorDiv";
+rotorsScreen.appendChild(inputRotor4Div);
+
+const labelRotor4 = document.createElement("label");
+labelRotor4.textContent = "Position for rotor IV";
+inputRotor4Div.appendChild(labelRotor4);
+
+const inputRotor4 = document.createElement("input");
+inputRotor4.type = "text";
+inputRotor4.placeholder = "1";
+inputRotor4.style.width = "20%"
+inputRotor4Div.appendChild(inputRotor4);
+
+// notch position
+
+const labelNotch4 =document.createElement("label");
+labelNotch4.textContent = "Notch positions:";
+inputRotor4Div.appendChild(labelNotch4);
+
+const inputNotch4 = document.createElement("input");
+inputNotch4.placeholder = "1";
+inputNotch4.style.width = "20%";
+inputRotor4Div.appendChild(inputNotch4);
+
+// rotor 5
+const inputRotor5Div = document.createElement("div");
+inputRotor5Div.style.height = "18%";
+inputRotor5Div.style.width = "100%";
+inputRotor5Div.className = "rotorDiv";
+rotorsScreen.appendChild(inputRotor5Div);
+
+const labelRotor5 = document.createElement("label");
+labelRotor5.textContent = "Position for rotor V";
+inputRotor5Div.appendChild(labelRotor5);
+
+const inputRotor5 = document.createElement("input");
+inputRotor5.type = "text";
+inputRotor5.placeholder = "1";
+inputRotor5.style.width = "20%"
+inputRotor5Div.appendChild(inputRotor5);
+
+// notch position
+
+const labelNotch5 =document.createElement("label");
+labelNotch5.textContent = "Notch positions:";
+inputRotor5Div.appendChild(labelNotch5);
+
+const inputNotch5 = document.createElement("input");
+inputNotch5.placeholder = "1";
+inputNotch5.style.width = "20%";
+inputRotor5Div.appendChild(inputNotch5);
+
+const rotorPositionsElem: HTMLInputElement[] = [inputRotor1, inputRotor2, inputRotor3, inputRotor4, inputRotor5];
+// create the default positions
+export const rotorPositions: number[] = [1, 1, 1, 1, 1];
+
+
+for (let i = 0; i < 5; i++) {
+  rotorPositionsElem[i].onchange = () => {
+    if (rotorPositionsElem[i]) {
+      rotorPositions[i] = parseInt(rotorPositionsElem[i].value);
+    } else {
+      // if input is empty, we set to default
+      rotorPositions[i] = 1;
+    }
+  }
+}
+
+const notchPositionElem: HTMLInputElement[] = [inputNotch1, inputNotch2, inputNotch3, inputNotch4, inputNotch5];
+// set the default
+export const notchPositions: number[][] = [[1], [1], [1], [1], [1]];
+
+for (let i = 0; i < 5; i++) {
+  notchPositionElem[i].onchange = () => {
+    if (notchPositionElem[i]) {
+      let notchArray: number[] = [];
+      notchPositionElem[i].value.split(",").forEach((numb: string) =>{
+        notchArray.push(parseInt(numb));
+      });
+      notchPositions[i] = notchArray;
+    }
+  }
+}
+
 
 // plug board representation
 // this is where the client can interact and input things to the plugboard
@@ -139,9 +221,14 @@ settingsScreen.appendChild(plugScreen);
 const plugScreenLabel = document.createElement("div");
 plugScreenLabel.id = "plugScreenLabel";
 plugScreen.appendChild(plugScreenLabel);
+
+export const buttonBack = document.createElement("button");
+buttonBack.textContent = "Back";
+buttonBack.id="buttonBack";
+plugScreenLabel.appendChild(buttonBack);
+
 let plugInputs = new Map<number, HTMLInputElement>;
 let plugDivs = new Map<number, HTMLDivElement>;
-
 
 const plugTitle = document.createElement("h2");
 plugTitle.textContent = "plugboard"
@@ -174,7 +261,7 @@ for (let i = 32; i <= 126; i++) {
 // logic for when the plugboard changes
 
 // this map will hold the values submitted on the plugboard
-let plugboard = new Map<string, string>
+export let plugboard = new Map<string, string>
 
 // of course, when nothing else is specified, the plugboard should 
 // just give the value of the specified character
@@ -185,7 +272,6 @@ for (let i = 32; i <= 126; i++) {
 // function for setting the pairs
 function input(asciiKey: number) {
   let input = plugInputs.get(asciiKey)!.value;
-  console.log(input);
   //check for possible null
   if (input) {
     // get ACSII value for the inputted character and 
@@ -200,7 +286,7 @@ function input(asciiKey: number) {
     let previousLink = plugboard.get(String.fromCharCode(asciiKey))!.charCodeAt(0);
     if (previousLink !== asciiKey) {
       plugInputs.get(previousLink)!.value = "";
-      plugDivs.get(previousLink)!.style.color = "black";
+      plugDivs.get(previousLink)!.style.color = "#D22730";
     }
     // set the plugboard map to the correct values
     plugboard.set(String.fromCharCode(asciiValue), String.fromCharCode(asciiKey));
@@ -214,8 +300,8 @@ function input(asciiKey: number) {
     let asciiValue = plugboard.get(String.fromCharCode(asciiKey))!.charCodeAt(0);
     plugInputs.get(asciiValue)!.value = "";
     // reset upon removal
-    plugDivs.get(asciiKey)!.style.color = "black";
-    plugDivs.get(asciiValue)!.style.color = "black";
+    plugDivs.get(asciiKey)!.style.color = "#D22730";
+    plugDivs.get(asciiValue)!.style.color = "#D22730";
     // reset the plugboard values
     plugboard.set(String.fromCharCode(asciiValue), String.fromCharCode(asciiValue));
     plugboard.set(String.fromCharCode(asciiKey), String.fromCharCode(asciiKey));
@@ -227,21 +313,18 @@ for (let i = 32; i <= 126; i++) {
     input(i)
   }
 }
-// react upon input from button
-changeButton.onclick = () => {
-  if (currentScreen === "input") {
-    // remove the input screen so that it can be replaced
-    main.removeChild(inputScreen);
-    //replace it with the settings screen
-    main.appendChild(settingsScreen);
 
-    currentScreen = "settings";
-  } else if (currentScreen === "settings") {
-    // remove the settings screen so that it can be replaced
-    main.removeChild(settingsScreen);
-    //replace it with the input screen
-    main.appendChild(inputScreen);
+// button for reseting the plugboard
 
-    currentScreen = "input";
+const buttonReset = document.createElement("button");
+buttonReset.textContent = "Reset";
+buttonReset.id="buttonReset";
+plugScreen.appendChild(buttonReset);
+
+buttonReset.onclick = () => {
+  for (let i = 32; i <= 126; i++) {
+    plugboard.set(String.fromCharCode(i), String.fromCharCode(i));
+    plugDivs.get(i)!.style.color = "#D22730";
+    plugInputs.get(i)!.value = "";
   }
 }

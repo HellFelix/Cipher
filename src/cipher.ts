@@ -1,8 +1,8 @@
-const inputArea = <HTMLElement> document.getElementById("input");
-const outputArea = <HTMLElement> document.getElementById("output");
+import * as Settings from "./settings";
+import "./screen_change";
+
 
 // create the rotor class
-
 
 class rotor {
   notch: number;
@@ -126,7 +126,7 @@ const rotorMap3 = new Map<number, number>([
   [35, 35], [92, 126], [126, 92], [79, 82], [82, 79]
 ]);
 
-const reflectorMap = new Map<number, number>([
+const rotorMap4 = new Map<number, number>([
   [72, 99], [99, 72], [77, 115], [115, 77], [124, 50], [50, 124], 
   [64, 64], [67, 45], [45, 67], [36, 125], [125, 36], [39, 56], 
   [56, 39], [84, 110], [110, 84], [114, 69], [69, 114], [73, 108], 
@@ -143,50 +143,65 @@ const reflectorMap = new Map<number, number>([
   [93, 57], [57, 93], [54, 42], [42, 54], [68, 98], [98, 68], 
   [51, 118], [118, 51], [120, 61], [61, 120], [107, 63], [63, 107], 
   [126, 38], [38, 126], [44, 97], [97, 44], [85, 85]
-]) 
+]);
 
+const rotorMap5 = new Map<number, number>([
+  [96, 99], [99, 96], [109, 82], [82, 109], [94, 125], [125, 94], 
+  [53, 114], [114, 53], [90, 45], [45, 90], [101, 123], [123, 101], 
+  [106, 65], [65, 106], [59, 118], [118, 59], [75, 104], [104, 75], 
+  [54, 116], [116, 54], [42, 38], [38, 42], [111, 79], [79, 111], 
+  [66, 57], [57, 66], [39, 58], [58, 39], [73, 63], [63, 73], 
+  [77, 55], [55, 77], [33, 56], [56, 33], [107, 103], [103, 107], 
+  [100, 61], [61, 100], [120, 92], [92, 120], [89, 69], [69, 89], 
+  [32, 88], [88, 32], [112, 105], [105, 112], [35, 86], [86, 35], 
+  [49, 50], [50, 49], [97, 48], [48, 97], [108, 67], [67, 108], 
+  [76, 80], [80, 76], [46, 40], [40, 46], [81, 62], [62, 81], 
+  [119, 83], [83, 119], [71, 44], [44, 71], [115, 95], [95, 115], 
+  [84, 60], [60, 84], [64, 51], [51, 64], [47, 117], [117, 47], 
+  [110, 98], [98, 110], [113, 121], [121, 113], [74, 122], [122, 74], 
+  [126, 87], [87, 126], [68, 93], [93, 68], [102, 124], [124, 102], 
+  [78, 78], [91, 37], [37, 91], [34, 85], [85, 34], [41, 36], 
+  [36, 41], [43, 52], [52, 43], [72, 70], [70, 72]
+])
+
+const inputEncode = <HTMLInputElement> document.getElementById("encodeInput");
+const outputEncode = <HTMLInputElement> document.getElementById("encodeOutput");
+const buttonEncode = <HTMLButtonElement> document.getElementById("buttonEncode")
+
+buttonEncode.onclick = () => {
 // create the rotors 
 // the default settings will be that the following
 // position is set to 0
 // notch position is set to 0
 // each internal mapping is determinedby the Map objects above
 
-const rotor1 = new rotor(0, 1, rotorMap1);
+let rotor1 = new rotor(1, Settings.rotorPositions[0], rotorMap1);
 
-const rotor2 = new rotor(0, 6, rotorMap2);
+let rotor2 = new rotor(1, Settings.rotorPositions[1], rotorMap2);
 
-const rotor3 = new rotor(0, 1, rotorMap3);
+let rotor3 = new rotor(1, Settings.rotorPositions[2], rotorMap3);
+
+let rotor4 = new rotor(1, Settings.rotorPositions[3], rotorMap4);
+
+let rotor5 = new rotor(1, Settings.rotorPositions[4], rotorMap5);
 
 // initialize the rotors
 
 rotor1.init();
 rotor2.init();
 rotor3.init();
+rotor4.init();
+rotor5.init();
 
 // one disadvantage to using the ascii table as a reference is that the second and third rotor
 // hardly ever turn because for the second rotor to turn, the first rotor must turn 95 times
 // (of course the same goes for the third rotor)
 // to counteract this, the user will be able to input multiple notch positions
 // whenever the notch hits one of these positions, the next rotor will spin
-// these notch positions are only required for notches one and two since the reflector cannot turn
-
-const notchArray1 = [50, 61, 36, 82, 71, 1, 39, 79, 20, 75, 2, 27, 3];
-const notchArray2 = [89, 40, 62, 59, 45, 44, 49, 7, 48];
-
-
-// the reflector wheel will never turn. Still it is represented as a rotor class object 
-// because it severs basically the same purpouse except for the spinning as it "reflects"
-// the letter to go throught the rotors a second time
-// note also that the reflector does not need to be initialized because its
-// position and notch position is arbetrary so long as it always remains the same
-const reflector = new rotor(0, 0, reflectorMap);
 
 function encodeCharacter(input: string) {
   // first we run the letter through all of the rotors once
-  let firstEncryption = reflector.output(rotor3.output(rotor2.output(rotor1.output(input.charCodeAt(0))!)!)!)!;
-  // now, the second time we run the letter through, it will have already 
-  // "bounced off" the reflector, so this time, we only run it throught the rotors
-  let finalEncryption = rotor1.output(rotor2.output(rotor3.output(firstEncryption)!)!);
+  let encryption = rotor5.output(rotor4.output(rotor3.output(rotor2.output(rotor1.output(input.charCodeAt(0))!)!)!)!)!;
   
   // note that we did not spin the rotors in between the runthroughs of the rotors
   // this is because the cipher must be identical backwards in order to decrypt 
@@ -194,26 +209,110 @@ function encodeCharacter(input: string) {
   
   // now we spin the rotors
   rotor1.spin(1);
-  if (notchArray1.includes(rotor1.notch)) {
+  if (Settings.notchPositions[0].includes(rotor1.notch)) {
     rotor2.spin(1);
   }
-  if (notchArray2.includes(rotor2.notch)) {
+  if (Settings.notchPositions[1].includes(rotor2.notch)) {
     rotor3.spin(1);
   }
+  if (Settings.notchPositions[2].includes(rotor3.notch)) {
+    rotor4.spin(1);
+  }
+  if (Settings.notchPositions[3].includes(rotor4.notch)) {
+    rotor5.spin(1);
+  }
 
-  return String.fromCharCode(finalEncryption!);
+  return String.fromCharCode(encryption);
 }
 
 function encodeMessage(input: string) {
   let inputArray = input.split('');
   let output = "";
   inputArray.forEach((character: string) => {
-    let codeCharacter = encodeCharacter(character);
-    output += codeCharacter;
+    let codeCharacter = encodeCharacter(Settings.plugboard.get(character));
+    output += Settings.plugboard.get(codeCharacter);
+  });
+
+  return output;
+}
+
+outputEncode.value = encodeMessage(inputEncode.value);
+}
+
+
+const inputDecode = <HTMLInputElement> document.getElementById("decodeInput");
+const outputDecode = <HTMLInputElement> document.getElementById("decodeOutput");
+const buttonDecode = <HTMLButtonElement> document.getElementById("buttonDecode");
+
+buttonDecode.onclick= () => {
+
+// create the rotors 
+// the default settings will be that the following
+// position is set to 0
+// notch position is set to 0
+// each internal mapping is determinedby the Map objects above
+
+let rotor1 = new rotor(1, Settings.rotorPositions[0], rotorMap1);
+
+let rotor2 = new rotor(1, Settings.rotorPositions[1], rotorMap2);
+
+let rotor3 = new rotor(1, Settings.rotorPositions[2], rotorMap3);
+
+let rotor4 = new rotor(1, Settings.rotorPositions[3], rotorMap4);
+
+let rotor5 = new rotor(1, Settings.rotorPositions[4], rotorMap5);
+
+// initialize the rotors
+
+rotor1.init();
+rotor2.init();
+rotor3.init();
+rotor4.init();
+rotor5.init();
+
+// one disadvantage to using the ascii table as a reference is that the second and third rotor
+// hardly ever turn because for the second rotor to turn, the first rotor must turn 95 times
+// (of course the same goes for the third rotor)
+// to counteract this, the user will be able to input multiple notch positions
+// whenever the notch hits one of these positions, the next rotor will spin
+
+function decodeCharacter(input: string) {
+  // first we run the letter through all of the rotors once
+  let encryption = rotor1.output(rotor2.output(rotor3.output(rotor4.output(rotor5.output(input.charCodeAt(0))!)!)!)!)!;
+  
+  // note that we did not spin the rotors in between the runthroughs of the rotors
+  // this is because the cipher must be identical backwards in order to decrypt 
+  // the message later on
+  
+  // now we spin the rotors
+  rotor1.spin(1);
+  if (Settings.notchPositions[0].includes(rotor1.notch)) {
+    rotor2.spin(1);
+  }
+  if (Settings.notchPositions[1].includes(rotor2.notch)) {
+    rotor3.spin(1);
+  }
+  if (Settings.notchPositions[2].includes(rotor3.notch)) {
+    rotor4.spin(1);
+  }
+  if (Settings.notchPositions[3].includes(rotor4.notch)) {
+    rotor5.spin(1);
+  }
+
+  return String.fromCharCode(encryption);
+}
+
+function decodeMessage(input: string) {
+  let inputArray = input.split('');
+  let output = "";
+  inputArray.forEach((character: string) => {
+    let codeCharacter = decodeCharacter(Settings.plugboard.get(character));
+    output += Settings.plugboard.get(codeCharacter);
   });
 
   return output;
 }
 
 
-console.log(encodeMessage('|RP$;OYu)MeUUgY+]"ILdMr'));
+outputDecode.value = decodeMessage(inputDecode.value);
+}
